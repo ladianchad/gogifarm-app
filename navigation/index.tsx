@@ -5,18 +5,20 @@
  */
 import { FontAwesome } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable } from 'react-native';
+import { ColorSchemeName, Pressable, Image } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import HomeScreen from '../screens/HomeScreen';
 import ModalScreen from '../screens/ModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
+import { RootStackParamList, RootTabParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -28,7 +30,6 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
     </NavigationContainer>
   );
 }
-
 /**
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
@@ -58,38 +59,59 @@ function BottomTabNavigator() {
 
   return (
     <BottomTab.Navigator
-      initialRouteName="TabOne"
-      screenOptions={{
+      initialRouteName="Home"
+      screenOptions={({navigation}) => ({
         tabBarActiveTintColor: Colors[colorScheme].tint,
-      }}>
+        tabBarLabelPosition: "below-icon",
+        headerStyle: {
+          backgroundColor: "#eb3300",
+          height: 50
+        },
+        headerTitleAlign: "center",
+        headerTitleStyle: {
+          alignItems: "center",
+          display: "flex",
+        },
+        headerTitle: (props) => {
+          const onTitlePressed = () => {
+            navigation.navigate('Home');
+          }
+          return(
+          <Pressable onPress={onTitlePressed}>
+            <Image style={{
+              width: 220,
+              height: 40
+            }} 
+            source={require('../assets/images/header-text-logo.png')}></Image>
+          </Pressable>);
+        }
+        })}
+      >
+      <BottomTab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={() => ({
+          title: 'Home',
+          tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+          headerShown: true,
+        })}
+      />
       <BottomTab.Screen
         name="TabOne"
         component={TabOneScreen}
-        options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-          title: 'Tab One',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
-          headerRight: () => (
-            <Pressable
-              onPress={() => navigation.navigate('Modal')}
-              style={({ pressed }) => ({
-                opacity: pressed ? 0.5 : 1,
-              })}>
-              <FontAwesome
-                name="info-circle"
-                size={25}
-                color={Colors[colorScheme].text}
-                style={{ marginRight: 15 }}
-              />
-            </Pressable>
-          ),
-        })}
+        options={{
+          title: 'Links',
+          tabBarIcon: ({ color }) => <TabBarIcon name="link" color={color} />,
+          headerShown: true
+        }}
       />
       <BottomTab.Screen
         name="TabTwo"
         component={TabTwoScreen}
         options={{
-          title: 'Tab Two',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          title: 'Image',
+          tabBarIcon: ({ color }) => <TabBarIcon name="image" color={color} />,
+          headerShown: false
         }}
       />
     </BottomTab.Navigator>

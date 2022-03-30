@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 import { Text, View } from '../components/Themed';
+import useColorScheme from '../hooks/useColorScheme';
 
-export default function TabOneScreen() {
+export default function HomeScreen() {
+  const colorScheme = useColorScheme();
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
     </View>
   );
 }
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 50,
     fontWeight: 'bold',
   }
 });
