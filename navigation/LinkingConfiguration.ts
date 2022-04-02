@@ -12,19 +12,22 @@ import { RootStackParamList } from '../types';
 const linking: LinkingOptions<RootStackParamList> = {
   prefixes: [Linking.makeUrl('/')],
   config: {
+    initialRouteName: 'Root',
     screens: {
       Root: {
+        initialRouteName: 'Home',
         screens: {
           Home: {
             screens: {
-              HomeScreen: 'home',
+              Main: 'Main',
+              Product: 'Product',
             },
           },
-          TabOne: {
+          Category: {
             screens: {
-              TabOneScreen: 'two',
+
             }
-          },
+          }
         },
       },
       Modal: 'modal',

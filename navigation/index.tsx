@@ -8,10 +8,13 @@ import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { ColorSchemeName, Pressable, Image } from 'react-native';
-import { Text, View } from '../components/Themed';
+import BagScreen from '../screens/BagScreen';
 import HomeScreen from '../screens/HomeScreen';
 import ModalScreen from '../screens/ModalScreen';
+import MyPageScreen from '../screens/MyPageScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
+import ProductScreen from '../screens/ProductScreen';
+import SearchScreen from '../screens/SearchScreen';
 import { RootStackParamList, RootTabParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
@@ -39,7 +42,7 @@ function RootNavigator() {
         title: "고기팜"
       })}
     >
-      <Stack.Screen name="Root" component={BootomTabNavigatior}/>
+      <Stack.Screen name="Root" component={BootomTabNavigator}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
@@ -48,151 +51,66 @@ function RootNavigator() {
   );
 }
 
-/**
- * A bottom tab navigator displays tab buttons on the bottom of the display to switch screens.
- * https://reactnavigation.org/docs/bottom-tab-navigator
- */
 const BootomTab = createBottomTabNavigator<RootTabParamList>();
 
-function BootomTabNavigatior() {
-  return (
+function BootomTabNavigator() {
+  return(
     <BootomTab.Navigator
-      initialRouteName="Home"
       screenOptions={({navigation}) => ({
-        tabBarLabelPosition: "below-icon",
-        headerStyle: {
-          backgroundColor: "#eb3300",
-          height: 50,
-          borderWidth: 0
-        },
-        headerTitleAlign: "center",
-        headerTitleStyle: {
-          alignItems: "center",
-          display: "flex",
-          backgroundColor: "#ffffff"
-        },
-        tabBarStyle: {
-          borderTopColor: "#EBEBEB",
-          backgroundColor: "#ffffff"
-        },
-        headerShown: false,
-        headerTitle: () => {
-          const onTitlePressed = () => {
-            navigation.navigate('Home');
-          }
-          return(
-          <Pressable onPress={onTitlePressed}>
-            <Image style={{
-              width: 220,
-              height: 40
-            }} 
-            source={require('../assets/images/header-text-logo.png')}></Image>
-          </Pressable>);
-        },
-        })}
+        header: () => null,
+        title: "고기팜"
+      })}
+      initialRouteName="Home"
+    >
+      <BootomTab.Group
+        screenOptions={{
+          
+        }}
       >
-      <BootomTab.Screen
-        name="Category"
-        component={HomeScreen}
-        options={() => ({
-          title: 'Home',
-          tabBarLabel: ({}) => <Text>카테고리</Text>,
-          tabBarIcon: ({}) => <View 
-            style={{
-              width: 20,
-              height: 20
-            }}
-            >
-              <Text
-                style={{
-                  color: "#777",
-                  height: 2,
-                  backgroundColor: "#666",
-                  fontSize: 10,
-                  lineHeight: 10
-                }}
-              ></Text>
-              <Text
-                style={{
-                  color: "#777",
-                  height: 2,
-                  backgroundColor: "#666"
-                }}
-              ></Text>
-              <Text
-                style={{
-                  color: "#777",
-                  height: 2,
-                  backgroundColor: "#666"
-                }}
-              ></Text>
-            </View>,
-          headerShown: true
-        })}
-      />
-
-      <BootomTab.Screen
-        name="Search"
-        component={NotFoundScreen}
-        options={() => ({
-          title: 'Home',
-          tabBarLabel: ({}) => <Text>검색</Text>,
-          tabBarIcon: ({}) => <Image 
-            style={{
-              width: 20,
-              height: 20
-            }}
-            source={require('../assets/images/logo.png')} />,
-        })}
-      />
-
-      <BootomTab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={() => ({
-          title: 'Home',
-          tabBarLabel: ({}) => <Text>홈</Text>,
-          tabBarIcon: ({}) => <Image 
-            style={{
-              width: 20,
-              height: 20
-            }}
-            source={require('../assets/images/logo.png')} />,
-          headerShown: true,
-        })}
-      />
-
-      <BootomTab.Screen
-        name="Bag"
-        component={NotFoundScreen}
-        options={() => ({
-          title: 'Home',
-          tabBarLabel: ({}) => <Text>장바구니</Text>,
-          tabBarIcon: ({}) => <Image 
-            style={{
-              width: 20,
-              height: 20
-            }}
-            source={require('../assets/images/logo.png')} />,
-        })}
-      />
-      <BootomTab.Screen
-        name="MyPage"
-        component={NotFoundScreen}
-        options={() => ({
-          title: 'Home',
-          tabBarLabel: ({}) => <Text>마이페이지</Text>,
-          tabBarIcon: ({}) => <Image 
-            style={{
-              width: 20,
-              height: 20
-            }}
-            source={require('../assets/images/logo.png')} />,
-        })}
-      />
-
-
-      
+        <BootomTab.Screen 
+          options={{
+            tabBarLabel: "카테고리"
+          }}
+          name="Category" component={ModalScreen}/>
+      </BootomTab.Group>
+      <BootomTab.Screen 
+        options={{
+          tabBarLabel: "검색"
+        }}
+        name="Search" component={SearchScreen}/>
+      <BootomTab.Screen 
+        options={{
+          tabBarLabel: "홈"
+        }}
+        name="Home" component={PageNavigator}/>
+      <BootomTab.Screen 
+        options={{
+          tabBarLabel: "장바구니"
+        }}
+        name="Bag" component={BagScreen}/>
+      <BootomTab.Screen 
+        options={{
+          tabBarLabel: "마이 페이지"
+        }}
+        name="MyPage" component={MyPageScreen}/>
     </BootomTab.Navigator>
-  );
+  )
+}
+
+const Page = createNativeStackNavigator();
+
+function PageNavigator({navigation}) {
+  return(
+    <Page.Navigator
+      screenOptions={{
+        header: () => null,
+        title: "고기팜"
+      }}
+      initialRouteName="Main"
+    >
+      <Page.Screen 
+        name="Main" component={HomeScreen}></Page.Screen>
+      <Page.Screen name="Product" component={ProductScreen}></Page.Screen>
+    </Page.Navigator>
+  )
 }
