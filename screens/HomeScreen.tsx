@@ -11,7 +11,9 @@ export default function HomeScreen({navigation , route}) {
     <SafeAreaView style={styles.container}>
       <MainHeader navigation={navigation}/>
       <ProductNavigator navigation={navigation}/>
-      <Text style={styles.mainText}>고기팜 메인 테스트 페이지.</Text>
+      <Pressable onPress={() => {navigation.navigate("Login")}}>
+        <Text style={styles.mainText}>고기팜 테스트 메인 페이지.</Text>
+      </Pressable>
     </SafeAreaView>
   );
 }

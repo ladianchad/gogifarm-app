@@ -16,6 +16,7 @@ declare global {
 export type RootStackParamList = {
   Root: NavigatorScreenParams<RootTabParamList> | undefined;
   Modal: undefined;
+  CategoryModal: undefined;
   NotFound: undefined;
 };
 
@@ -24,16 +25,45 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> = Nati
   Screen
 >;
 
+export type InitalRoute = {
+  initalRoute: string | undefined;
+};
+
+export type RootScreenLinkingList = {
+  Root: NavigatorScreenParams<RootTabLinkingList> | undefined;
+  Modal: undefined;
+  CategoryModal: undefined;
+  NotFound: undefined;
+}
+
+export type RootTabLinkingList = {
+  HomeTab: undefined;
+  CategoryTab: undefined;
+  SearchTab: undefined;
+  BagTab: undefined;
+  MyPageTab: undefined;
+  ProductTab: undefined;
+}
+
 export type RootTabParamList = {
-  Home: undefined;
-  Category: undefined;
-  Search: undefined;
-  Bag: undefined;
-  MyPage: undefined;
-  Product: undefined;
+  HomeTab: undefined;
+  CategoryTab: undefined;
+  SearchTab: InitalRoute | undefined;
+  BagTab: InitalRoute | undefined;
+  MyPageTab: InitalRoute | undefined;
+  ProductTab: InitalRoute | undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
+
+export type PageParamList = {
+  Home: undefined;
+  Category: undefined;
+  Search: undefined;
+  Bag: undefined;
+  MyPage: undefined;
+  Product: undefined;
+}

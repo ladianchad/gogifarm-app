@@ -17,7 +17,9 @@ export default function ProductNavigator ({navigation}) {
 function ProductNavigationItem({navigation, itemType, source, comment}) {
 
   const onPressed = ()=>{
-    navigation.navigate('Product', itemType);
+    navigation.navigate('Product', {
+      itemType
+    });
   }
 
   return(

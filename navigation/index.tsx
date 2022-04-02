@@ -4,12 +4,13 @@
  *
  */
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { ColorSchemeName, Pressable, Image } from 'react-native';
 import BagScreen from '../screens/BagScreen';
+import CategoryModalScreen from '../screens/CategoryModalScreen';
 import HomeScreen from '../screens/HomeScreen';
+import LoginScreen from '../screens/LogInScreen';
 import ModalScreen from '../screens/ModalScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -18,11 +19,10 @@ import SearchScreen from '../screens/SearchScreen';
 import { RootStackParamList, RootTabParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
-export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+export default function Navigation() {
   return (
     <NavigationContainer
-      linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      linking={LinkingConfiguration}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -39,19 +39,23 @@ function RootNavigator() {
       initialRouteName="Root"
       screenOptions={() => ({
         headerShown: false,
-        title: "고기팜"
+        title: "고기팜",
       })}
     >
       <Stack.Screen name="Root" component={BootomTabNavigator}/>
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
+        </Stack.Group>
+      <Stack.Group screenOptions={{ presentation: 'containedTransparentModal', animation: 'none' }}>
+        <Stack.Screen name="CategoryModal" component={CategoryModalScreen}/>
       </Stack.Group>
     </Stack.Navigator>
   );
 }
 
 const BootomTab = createBottomTabNavigator<RootTabParamList>();
+const NullScreen = () => null;
 
 function BootomTabNavigator() {
   return(
@@ -60,57 +64,82 @@ function BootomTabNavigator() {
         header: () => null,
         title: "고기팜"
       })}
-      initialRouteName="Home"
+      initialRouteName="HomeTab"
     >
-      <BootomTab.Group
-        screenOptions={{
-          
-        }}
-      >
+      <BootomTab.Group>
         <BootomTab.Screen 
           options={{
-            tabBarLabel: "카테고리"
+            tabBarLabel: "카테고리",
           }}
-          name="Category" component={ModalScreen}/>
+          name="CategoryTab" 
+          component={NullScreen}
+          listeners={
+            ({navigation}) => ({
+              tabPress: event => {
+                event.preventDefault();
+                navigation.navigate("CategoryModal")
+              }
+            })}
+          />
       </BootomTab.Group>
       <BootomTab.Screen 
         options={{
           tabBarLabel: "검색"
         }}
-        name="Search" component={SearchScreen}/>
+        initialParams={{
+          initalRoute: "Search"
+        }}
+        name="SearchTab" component={PageNavigator}/>
       <BootomTab.Screen 
         options={{
-          tabBarLabel: "홈"
+          tabBarLabel: "홈",
         }}
-        name="Home" component={PageNavigator}/>
+        listeners={
+          ({navigation}) => ({
+            tabPress: event => {
+              event.preventDefault();
+              navigation.navigate("Main")
+            }
+          })}
+        name="HomeTab" component={PageNavigator}/>
       <BootomTab.Screen 
         options={{
-          tabBarLabel: "장바구니"
+          tabBarLabel: "장바구니",
         }}
-        name="Bag" component={BagScreen}/>
+        initialParams={{
+          initalRoute: "Bag"
+        }}
+        name="BagTab" component={PageNavigator}/>
       <BootomTab.Screen 
         options={{
-          tabBarLabel: "마이 페이지"
+          tabBarLabel: "마이 페이지",
         }}
-        name="MyPage" component={MyPageScreen}/>
+        initialParams={{
+          initalRoute: "MyPage"
+        }}
+        name="MyPageTab" component={PageNavigator}/>
     </BootomTab.Navigator>
   )
 }
 
 const Page = createNativeStackNavigator();
 
-function PageNavigator({navigation}) {
+function PageNavigator({route}) {
+  const {initalRoute} = route.params || {initalRoute: "Main"};
   return(
     <Page.Navigator
       screenOptions={{
         header: () => null,
         title: "고기팜"
       }}
-      initialRouteName="Main"
+      initialRouteName={initalRoute || "Main"}
     >
-      <Page.Screen 
-        name="Main" component={HomeScreen}></Page.Screen>
+      <Page.Screen name="Main" component={HomeScreen}></Page.Screen>
       <Page.Screen name="Product" component={ProductScreen}></Page.Screen>
+      <Page.Screen name="Search" component={SearchScreen}></Page.Screen>
+      <Page.Screen name="Bag" component={BagScreen}></Page.Screen>
+      <Page.Screen name="MyPage" component={MyPageScreen}></Page.Screen>
+      <Page.Screen name="Login" component={LoginScreen}></Page.Screen>
     </Page.Navigator>
   )
 }

@@ -7,33 +7,50 @@
 import { LinkingOptions } from '@react-navigation/native';
 import * as Linking from 'expo-linking';
 
-import { RootStackParamList } from '../types';
+import { RootScreenLinkingList } from '../types';
 
-const linking: LinkingOptions<RootStackParamList> = {
+const linking: LinkingOptions<RootScreenLinkingList> = {
   prefixes: [Linking.makeUrl('/')],
   config: {
     initialRouteName: 'Root',
     screens: {
       Root: {
-        initialRouteName: 'Home',
+        initialRouteName: 'HomeTab',
         screens: {
-          Home: {
+          HomeTab: {
             screens: {
-              Main: 'Main',
-              Product: 'Product',
-            },
+              Main: "Main",
+              Login: "Login",
+              Product: "Product"
+            }
           },
-          Category: {
+          CategoryTab: {
+            
+          },
+          SearchTab: {
             screens: {
-
+              Search: "Search"
+            }
+          },
+          BagTab: {
+            screens: {
+              Bag: "Bag"
+            }
+          },
+          MyPageTab: {
+            screens: {
+              MyPage: "MyPage"
             }
           }
         },
       },
-      Modal: 'modal',
+      Modal: 'Modal',
+      CategoryModal: 'CategoryModal',
       NotFound: '*',
     },
   },
 };
+
+
 
 export default linking;
