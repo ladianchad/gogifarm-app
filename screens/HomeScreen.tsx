@@ -12,7 +12,7 @@ export default function HomeScreen({navigation , route}) {
       <MainHeader navigation={navigation}/>
       <ProductNavigator navigation={navigation}/>
       <Pressable onPress={() => {navigation.navigate("Login")}}>
-        <Text style={styles.mainText}>고기팜 테스트 메인 페이지.</Text>
+        <Text style={styles.mainText}>고기팜 테스트 메인 페이지 테스트.</Text>
       </Pressable>
     </SafeAreaView>
   );

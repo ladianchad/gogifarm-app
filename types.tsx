@@ -37,12 +37,18 @@ export type RootScreenLinkingList = {
 }
 
 export type RootTabLinkingList = {
-  HomeTab: undefined;
+  HomeTab: NavigatorScreenParams<HomeTabLinkingList> | undefined;
   CategoryTab: undefined;
   SearchTab: undefined;
   BagTab: undefined;
   MyPageTab: undefined;
   ProductTab: undefined;
+}
+
+export type HomeTabLinkingList = {
+  Main: undefined;
+  Product: undefined;
+  Login: undefined;
 }
 
 export type RootTabParamList = {

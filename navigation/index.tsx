@@ -10,7 +10,7 @@ import * as React from 'react';
 import BagScreen from '../screens/BagScreen';
 import CategoryModalScreen from '../screens/CategoryModalScreen';
 import HomeScreen from '../screens/HomeScreen';
-import LoginScreen from '../screens/LogInScreen';
+import LoginScreen from '../screens/LoginScreen';
 import ModalScreen from '../screens/ModalScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -94,13 +94,6 @@ function BootomTabNavigator() {
         options={{
           tabBarLabel: "홈",
         }}
-        listeners={
-          ({navigation}) => ({
-            tabPress: event => {
-              event.preventDefault();
-              navigation.navigate("Main")
-            }
-          })}
         name="HomeTab" component={PageNavigator}/>
       <BootomTab.Screen 
         options={{
@@ -126,6 +119,7 @@ const Page = createNativeStackNavigator();
 
 function PageNavigator({route}) {
   const {initalRoute} = route.params || {initalRoute: "Main"};
+
   return(
     <Page.Navigator
       screenOptions={{

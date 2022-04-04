@@ -18,10 +18,11 @@ const linking: LinkingOptions<RootScreenLinkingList> = {
         initialRouteName: 'HomeTab',
         screens: {
           HomeTab: {
+            initialRouteName: "Main",
             screens: {
               Main: "Main",
               Login: "Login",
-              Product: "Product"
+              Product: "Product",
             }
           },
           CategoryTab: {
