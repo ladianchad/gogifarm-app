@@ -11,16 +11,6 @@ export default function HomeScreen({navigation , route}) {
 
   const [headerPos, setHeaderPos] = useState<number>(0);
 
-  const onScrolling = (event) => {
-    const offset = event.nativeEvent.contentOffset.y;
-    if(offset > 50){
-      setHeaderPos(-50);
-    }
-    else {
-      setHeaderPos(0);
-    }
-  }
-
   return (
     <SafeAreaView style={styles.container}>
       <MainHeader navigation={navigation} positon={headerPos}/>

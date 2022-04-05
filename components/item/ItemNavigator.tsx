@@ -45,12 +45,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 99.5,
     flexDirection: 'row',
-    padding: 16,
-    borderWidth: 0,
   },
   tab: {
     width: '16.666666%',
-    padding: 0,
     alignItems: 'center',
     justifyContent: 'center',
   },

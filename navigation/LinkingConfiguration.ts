@@ -22,7 +22,7 @@ const linking: LinkingOptions<RootScreenLinkingList> = {
             screens: {
               Main: "Main",
               Login: "Login",
-              Product: "Product",
+              Item: "Item",
             }
           },
           CategoryTab: {

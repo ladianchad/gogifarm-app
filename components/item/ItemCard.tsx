@@ -13,9 +13,10 @@ const styles = StyleSheet.create({
   container: {
     width: "45%",
     height: 227,
-    margin: 10,
+    marginHorizontal: "2.5%",
+    marginVertical: 10,
     borderRadius: 8,
-    backgroundColor: "#040404",
+    backgroundColor: "#efefef",
     justifyContent: 'center',
     textAlign: 'center',
     alignItems: 'center'

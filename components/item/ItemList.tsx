@@ -22,6 +22,7 @@ export default function ItemList({headerComponent}) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    flex: 1
+    flex: 1,
+    justifyContent: 'space-between'
   }
 })

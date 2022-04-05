@@ -42,12 +42,11 @@ export type RootTabLinkingList = {
   SearchTab: undefined;
   BagTab: undefined;
   MyPageTab: undefined;
-  ProductTab: undefined;
 }
 
 export type HomeTabLinkingList = {
   Main: undefined;
-  Product: undefined;
+  Item: undefined;
   Login: undefined;
 }
 
@@ -57,7 +56,6 @@ export type RootTabParamList = {
   SearchTab: InitalRoute | undefined;
   BagTab: InitalRoute | undefined;
   MyPageTab: InitalRoute | undefined;
-  ProductTab: InitalRoute | undefined;
 };
 
 export type RootTabScreenProps<Screen extends keyof RootTabParamList> = CompositeScreenProps<

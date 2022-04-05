@@ -14,10 +14,10 @@ import LoginScreen from '../screens/LoginScreen';
 import ModalScreen from '../screens/ModalScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
-import ProductScreen from '../screens/ProductScreen';
 import SearchScreen from '../screens/SearchScreen';
 import { RootStackParamList, RootTabParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import ItemScreen from '../screens/ItemScreen';
 
 export default function Navigation() {
   return (
@@ -47,7 +47,7 @@ function RootNavigator() {
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
         <Stack.Screen name="Modal" component={ModalScreen} />
         </Stack.Group>
-      <Stack.Group screenOptions={{ presentation: 'containedTransparentModal', animation: 'none' }}>
+      <Stack.Group screenOptions={{ presentation: 'containedTransparentModal', animation: 'fade'}}>
         <Stack.Screen name="CategoryModal" component={CategoryModalScreen}/>
       </Stack.Group>
     </Stack.Navigator>
@@ -129,7 +129,7 @@ function PageNavigator({route}) {
       initialRouteName={initalRoute || "Main"}
     >
       <Page.Screen name="Main" component={HomeScreen}></Page.Screen>
-      <Page.Screen name="Product" component={ProductScreen}></Page.Screen>
+      <Page.Screen name="Item" component={ItemScreen}></Page.Screen>
       <Page.Screen name="Search" component={SearchScreen}></Page.Screen>
       <Page.Screen name="Bag" component={BagScreen}></Page.Screen>
       <Page.Screen name="MyPage" component={MyPageScreen}></Page.Screen>
